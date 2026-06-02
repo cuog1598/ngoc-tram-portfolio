@@ -794,6 +794,52 @@
     </main>
   </div>
 
+  <!-- Gallery Modal for Mobile -->
+  <div class="gallery-modal" id="galleryModal">
+    <button class="gallery-modal-close" id="galleryModalClose">×</button>
+    <img id="galleryModalImg" src="" alt="Gallery image enlarged">
+  </div>
+
+  <script>
+    // Gallery modal functionality
+    const modal = document.getElementById('galleryModal');
+    const modalImg = document.getElementById('galleryModalImg');
+    const modalClose = document.getElementById('galleryModalClose');
+    const galleryShots = document.querySelectorAll('.shot');
+
+    // Open modal on shot click
+    galleryShots.forEach(shot => {
+      shot.addEventListener('click', (e) => {
+        const img = shot.querySelector('img');
+        if (img) {
+          modalImg.src = img.src;
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
+
+    // Close modal functions
+    const closeModal = () => {
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    };
+
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  </script>
+
   <script>
     // Scroll reveal animation using Intersection Observer
     const revealElements = document.querySelectorAll('.section, .stat, .platform-card, .job, .skill, .shot');
